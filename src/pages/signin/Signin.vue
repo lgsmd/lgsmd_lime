@@ -2,15 +2,17 @@
   <div class="wrapper">
     <div class="center">
       <div class="img">
-        <img :src="imgUrl">
+        <img src="@/assets/imgs/music_512_512.png">
       </div>
       <h1 class="name">Sign In</h1>
       <div class="input-wrapper">
-        <md-field class="input">
-          <md-input :placeholder="'Mobile'"/>
+        <md-field class="input" md-clearable>
+          <label>Mobile</label>
+          <md-input v-model="initial"></md-input>
         </md-field>
         <md-field  class="input">
-          <md-input :placeholder="'Password'"/>
+          <label>Password</label>
+          <md-input v-model="password" type="password"></md-input>
         </md-field>
         <md-button class="button">Sign In</md-button>
         <text-field></text-field>
