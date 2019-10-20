@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// import loging from './loginStatus'
+// import store from '@/store/store.js'
 import './assets/styles/reset.css'
 import './assets/styles/border.css'
 import VueMaterial from 'vue-material'

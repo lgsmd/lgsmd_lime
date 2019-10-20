@@ -8,25 +8,60 @@
       <div class="input-wrapper">
         <md-field class="input" md-clearable>
           <label>Mobile</label>
-          <md-input v-model="initial"></md-input>
+          <md-input v-model="userPhoneNumberL"></md-input>
         </md-field>
-        <md-field  class="input">
+        <md-field class="input">
           <label>Password</label>
-          <md-input v-model="password" type="password"></md-input>
+          <md-input type="password" v-model="userPassword"></md-input>
         </md-field>
-        <md-button class="button">Sign In</md-button>
-        <text-field></text-field>
+        <md-button
+          class="button"
+          @click="getUserInfoJson"
+        >Sign In</md-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+axios.default.withCredentials = true
+axios.defaults.crossDomain = true
+axios.defaults.baseURL = 'https://api.lgsmd.com'
 export default {
   name: 'SignIn',
   data () {
     return {
-      imgUrl: '@/assets/imgs/music_512_512.png'
+      imgUrl: '@/assets/imgs/music_512_512.png',
+      userPhoneNumberL: '',
+      userPassword: ''
+    }
+  },
+  methods: {
+    getUserInfoJson () {
+      axios.get('/login/cellphone?phone=' + this.userPhoneNumberL + '&password=' + this.userPassword,
+        { withCredentials: true })
+        .then(this.handleGetUserInfoJson)
+    },
+    handleGetUserInfoJson (res) {
+      if (res.status === 200) {
+        let allCookies = document.cookie
+        console.log(allCookies)
+        console.log(res)
+        axios.get('/login/status', { withCredentials: true })
+          .then(this.userStatusJson)
+      }
+    },
+    userStatusJson (res) {
+      if (res.status === 200) {
+        console.log(res)
+        axios.get('/user/playlist?uid=2015939851')
+          .then(this.aaa)
+        this.$router.push('/recommend')
+      }
+    },
+    aaa (res) {
+      console.log(res)
     }
   }
 }
