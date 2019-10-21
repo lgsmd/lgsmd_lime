@@ -6,18 +6,31 @@
       </div>
       <h1 class="name">Sign In</h1>
       <div class="input-wrapper">
-        <md-field class="input" md-clearable>
+        <md-field class="input">
           <label>Mobile</label>
           <md-input v-model="userPhoneNumberL"></md-input>
         </md-field>
-        <md-field class="input">
+        <md-field :class="{'input': true, 'md-invalid': checkPassword}">
           <label>Password</label>
-          <md-input type="password" v-model="userPassword"></md-input>
+          <md-input
+            type="password"
+            v-model="userPassword"
+            @click="handlePasswordInput"
+          ></md-input>
+          <span class="md-error">{{passwordErrorMessage}}</span>
         </md-field>
         <md-button
           class="button"
           @click="getUserInfoJson"
         >Sign In</md-button>
+        <md-button
+          class="button"
+          @click="Out"
+        >Out</md-button>
+        <md-button
+          class="button"
+          @click="check"
+        >check</md-button>
       </div>
     </div>
   </div>
@@ -25,8 +38,6 @@
 
 <script>
 import axios from 'axios'
-axios.default.withCredentials = true
-axios.defaults.crossDomain = true
 axios.defaults.baseURL = 'https://api.lgsmd.com'
 export default {
   name: 'SignIn',
@@ -34,34 +45,50 @@ export default {
     return {
       imgUrl: '@/assets/imgs/music_512_512.png',
       userPhoneNumberL: '',
-      userPassword: ''
+      userPassword: '',
+      checkPassword: false,
+      passwordErrorMessage: ''
     }
   },
   methods: {
     getUserInfoJson () {
-      axios.get('/login/cellphone?phone=' + this.userPhoneNumberL + '&password=' + this.userPassword,
-        { withCredentials: true })
-        .then(this.handleGetUserInfoJson)
+      if (this.userPassword === '') {
+        this.passwordErrorMessage = '密码不能为空'
+        this.checkPassword = true
+      } else if (this.userPassword.length > 0 && this.userPassword.length < 6) {
+        this.passwordErrorMessage = '密码长度不能小于6位'
+        this.checkPassword = true
+      } else {
+        this.checkPassword = false
+        axios.get('/login/cellphone?phone=' + this.userPhoneNumberL + '&password=' + this.userPassword, {withCredentials: true})
+          .then(this.handleGetUserInfoJson, e => {
+            console.log(e)
+          })
+      }
     },
     handleGetUserInfoJson (res) {
       if (res.status === 200) {
-        let allCookies = document.cookie
-        console.log(allCookies)
         console.log(res)
-        axios.get('/login/status', { withCredentials: true })
+        axios.get('/login/status', {withCredentials: true})
           .then(this.userStatusJson)
       }
     },
     userStatusJson (res) {
       if (res.status === 200) {
         console.log(res)
-        axios.get('/user/playlist?uid=2015939851')
-          .then(this.aaa)
-        this.$router.push('/recommend')
+        // this.$router.push('/recommend')
       }
     },
-    aaa (res) {
-      console.log(res)
+    Out () {
+      axios.get('/logout', {withCredentials: true})
+        .then((res) => console.log(res), e => console.log(e))
+    },
+    check () {
+      axios.get('/login/status', { withCredentials: true })
+        .then((res) => console.log(res), e => console.log(e))
+    },
+    handlePasswordInput () {
+      this.checkPassword = false
     }
   }
 }
