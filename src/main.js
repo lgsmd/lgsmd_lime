@@ -3,16 +3,19 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import loging from './loginStatus'
-// import store from '@/store/store.js'
 import './assets/styles/reset.css'
 import './assets/styles/border.css'
-import VueMaterial from 'vue-material'
+import './assets/iconfont.css'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
+import { MdField, MdButton, MdAvatar } from 'vue-material/dist/components'
+
+Vue.use(MdField)
+Vue.use(MdButton)
+Vue.use(MdAvatar)
 
 Vue.config.productionTip = false
-Vue.use(VueMaterial)
+// Vue.use(VueMaterial)
 
 /* eslint-disable no-new */
 new Vue({

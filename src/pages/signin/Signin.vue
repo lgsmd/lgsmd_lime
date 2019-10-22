@@ -38,6 +38,7 @@
 
 <script>
 import axios from 'axios'
+
 axios.defaults.baseURL = 'https://api.lgsmd.com'
 export default {
   name: 'SignIn',

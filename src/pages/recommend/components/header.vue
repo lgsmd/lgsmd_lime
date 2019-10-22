@@ -2,11 +2,17 @@
   <div class="div-wrapper">
     <div class="header-left">
       <img src="@/assets/imgs/music_512_512.png" class="header-image" />
+      <h1 class="header-title">LIME</h1>
+<!--      <div class="header-title"><span class="md-headline">LIME</span></div>-->
     </div>
-    <div class="header-title"><span class="md-title">LIME</span></div>
-    <input class="header-input" value="搜索"/>
+    <div class="input-wrapper iconfont">
+      <input class="header-input iconfont"
+             type="text"
+             placeholder="搜索"
+      />
+    </div>
     <div class="header-right">
-      <div class="iconfont">left</div>
+      <div class="icon iconfont">&#xe8b7;</div>
     </div>
   </div>
 </template>
@@ -21,32 +27,38 @@ export default {
 <style lang="stylus" scoped>
   .div-wrapper
     display: flex
+    height: .96rem
     width: 100%
     padding-top: .2rem
     .header-left
-      width: .84rem
+      display: flex
       float: left
-      margin-left: .18rem
+      margin-left: .25rem
       .header-image
         text-align: center
         padding: .1rem
-    .header-title
-      padding-top: .22rem
-    .header-input
+        width: .76rem
+      .header-title
+        margin-top: .18rem
+        font-size: .65rem
+    .input-wrapper
       flex: 1
-      color: #cacaca
-      background: #fff
-      height: .62rem
-      line-height: .62rem
-      padding-left: .2rem
-      margin-top: .12rem
-      margin-left: .22rem
-      border-radius: .3rem
+      margin-left: .25rem
+      margin-right: .25rem
+      .header-input
+        width: 100%
+        height: .6rem
+        margin-top: .08rem
+        color: #cacaca
+        background: #fff
+        border-radius: .3rem
+        text-align: center
     .header-right
-      float: right
-      margin-top: .1rem
-      margin-right: .28rem
-      margin-left: .3rem
-      padding-top: .1rem
+      flex: right
+      width: .76rem
+      margin-right: .25rem
       text-align: center
+      margin-top: .17rem
+      .icon
+        font-size: .6rem
 </style>
