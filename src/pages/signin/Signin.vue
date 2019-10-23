@@ -31,6 +31,27 @@
           class="button"
           @click="check"
         >check</md-button>
+        <router-link to="/recommend">
+          <md-button
+            class="button"
+          >goRecommend</md-button>
+        </router-link>
+        <md-button
+          class="button"
+          @click="playList"
+        >歌单详情</md-button>
+        <md-button
+          class="button"
+          @click="playList1"
+        >精品歌单</md-button>
+        <md-button
+          class="button"
+          @click="playList2"
+        >华语hot歌单</md-button>
+        <md-button
+          class="button"
+          @click="playList3"
+        >歌单分类</md-button>
       </div>
     </div>
   </div>
@@ -90,6 +111,22 @@ export default {
     },
     handlePasswordInput () {
       this.checkPassword = false
+    },
+    playList () {
+      axios.get('/playlist/detail?id=2829883282', { withCredentials: true })
+        .then((res) => console.log(res), e => console.log(e))
+    },
+    playList1 () {
+      axios.get('/top/playlist/highquality?before=1503639064232&limit=3', { withCredentials: true })
+        .then((res) => console.log(res), e => console.log(e))
+    },
+    playList2 () {
+      axios.get('/top/playlist?limit=10&order=hot&cat=华语', { withCredentials: true })
+        .then((res) => console.log(res), e => console.log(e))
+    },
+    playList3 () {
+      axios.get('/playlist/catlist', { withCredentials: true })
+        .then((res) => console.log(res), e => console.log(e))
     }
   }
 }

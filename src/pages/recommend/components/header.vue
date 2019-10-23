@@ -3,7 +3,6 @@
     <div class="header-left">
       <img src="@/assets/imgs/music_512_512.png" class="header-image" />
       <h1 class="header-title">LIME</h1>
-<!--      <div class="header-title"><span class="md-headline">LIME</span></div>-->
     </div>
     <div class="input-wrapper iconfont">
       <input class="header-input iconfont"

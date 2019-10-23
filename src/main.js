@@ -6,13 +6,15 @@ import router from './router'
 import './assets/styles/reset.css'
 import './assets/styles/border.css'
 import './assets/iconfont.css'
+import 'swiper/dist/css/swiper.css'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
-import { MdField, MdButton, MdAvatar } from 'vue-material/dist/components'
+import { MdField, MdButton } from 'vue-material/dist/components'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 Vue.use(MdField)
 Vue.use(MdButton)
-Vue.use(MdAvatar)
+Vue.use(VueAwesomeSwiper)
 
 Vue.config.productionTip = false
 // Vue.use(VueMaterial)
