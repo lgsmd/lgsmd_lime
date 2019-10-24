@@ -7,8 +7,8 @@
 
 <script>
 // import axios from 'axios'
-import HomeHeader from '@/pages/recommend/components/header.vue'
-import MusicSwiper from '@/pages/recommend/components/swiper.vue'
+import HomeHeader from './components/header.vue'
+import MusicSwiper from './components/swiper.vue'
 export default {
   name: 'Recommend',
   components: {

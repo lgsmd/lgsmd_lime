@@ -3,21 +3,21 @@
     <h2 class="title">RECOMMEND</h2>
     <swiper :options="swiperOption">
       <swiper-slide class="aaa">
-        <div class="img-wrapper">
+        <div class="img-wrapper" @click="handleSwiper">
           <img src="http://p1.music.126.net/KEBE7CU-y2lInkHBcgzpUA==/109951164173101961.jpg" />
         </div>
-        <div class="description-wrapper">
+        <div class="description-wrapper" @click="handleSwiper">
           <div class="md-title nick-name">网易云音乐</div>
           <div class="md-caption creator-description">网易云音乐官网账号</div>
           <div class="description">全都是耐听的华语好歌，这里是你的专属华语日推，收藏订阅，歌荒，不存在的事</div>
         </div>
         <div class="love-comment iconfont">
-          <div class="love-icon">
+          <div class="icons">
             <div class="icon" v-show="!likeIcon" @click="handleLike">&#xe8ab;</div>
             <div class="icon" v-show="likeIcon" @click="handleLike">&#xe8c3;</div>
             <div class="text">LIKE</div>
           </div>
-          <div class="comment-icon">
+          <div class="icons">
             <div class="icon">&#xe8b4;</div>
             <div class="text">COMMENTS</div>
           </div>
@@ -49,12 +49,16 @@ export default {
   methods: {
     handleLike () {
       this.likeIcon = !this.likeIcon
+    },
+    handleSwiper () {
+      this.$router.push('/list')
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+  @import '~styles/mixins.styl'
   .wrapper
     width: 100%
     margin-top: .5rem
@@ -73,6 +77,7 @@ export default {
         padding-bottom: 100%
       .description-wrapper
         margin: .2rem
+        color: black
         .nick-name
           font-size: .4rem
         .creator-description
@@ -80,21 +85,15 @@ export default {
         .description
           width: 100%
           margin-top: .3rem
-          overflow : hidden
-          display: -webkit-box
-          -webkit-line-clamp: 2
-          -webkit-box-orient: vertical
+          ellipsis-two()
       .love-comment
         position: absolute
         display: flex
         bottom: 0
         width: 100%
         height: 15%
-        .love-icon
-          width: 50%
-          text-align: center
-          margin-right: .15rem
-        .comment-icon
+        color: black
+        .icons
           width: 50%
           text-align: center
           margin-left: .15rem
