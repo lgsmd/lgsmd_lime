@@ -43,7 +43,7 @@
         <md-button
           class="button"
           @click="playList1"
-        >精品歌单</md-button>
+        >用户数据</md-button>
         <md-button
           class="button"
           @click="playList2"
@@ -51,7 +51,7 @@
         <md-button
           class="button"
           @click="playList3"
-        >歌单分类</md-button>
+        >获取用户信息</md-button>
       </div>
     </div>
   </div>
@@ -117,7 +117,7 @@ export default {
         .then((res) => console.log(res), e => console.log(e))
     },
     playList1 () {
-      axios.get('/top/playlist/highquality?before=1503639064232&limit=3', { withCredentials: true })
+      axios.get('/user/detail?uid=2015939851', { withCredentials: true })
         .then((res) => console.log(res), e => console.log(e))
     },
     playList2 () {
@@ -125,7 +125,7 @@ export default {
         .then((res) => console.log(res), e => console.log(e))
     },
     playList3 () {
-      axios.get('/playlist/catlist', { withCredentials: true })
+      axios.get('/user/subcount', { withCredentials: true })
         .then((res) => console.log(res), e => console.log(e))
     }
   }

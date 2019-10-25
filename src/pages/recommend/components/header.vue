@@ -11,7 +11,7 @@
       />
     </div>
     <div class="header-right">
-      <div class="icon iconfont">&#xe8b7;</div>
+      <div class="icon iconfont" @click="handleRouter">&#xe6a3;</div>
     </div>
   </div>
 </template>
@@ -19,7 +19,12 @@
 <script>
 // import axios from 'axios'
 export default {
-  name: 'HomeHeader'
+  name: 'HomeHeader',
+  methods: {
+    handleRouter () {
+      this.$router.push('/user')
+    }
+  }
 }
 </script>
 
@@ -59,5 +64,6 @@ export default {
       text-align: center
       margin-top: .17rem
       .icon
-        font-size: .6rem
+        font-size: .7rem
+        color: black
 </style>
