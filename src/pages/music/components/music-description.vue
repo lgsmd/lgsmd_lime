@@ -87,6 +87,7 @@ export default {
         height: 3rem
         .name
           height: .8rem
+          width: 70%
           ellipsis-two()
         .creator-avatar
           display: flex

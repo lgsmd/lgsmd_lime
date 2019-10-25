@@ -12,63 +12,6 @@
         <li class="musics">
           <div class="music-name border-bottom">偏爱</div>
         </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
       </ul>
     </div>
   </div>
