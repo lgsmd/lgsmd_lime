@@ -6,9 +6,13 @@
       </div>
       <h1 class="name">Sign In</h1>
       <div class="input-wrapper">
-        <md-field class="input">
+        <md-field :class="{'input': true, 'md-invalid': checkMobile}">
           <label>Mobile</label>
-          <md-input v-model="userPhoneNumberL"></md-input>
+          <md-input
+            v-model="userPhoneNumberL"
+            @click="handlePasswordInput"
+          ></md-input>
+          <span class="md-error">{{mobileErrorMessage}}</span>
         </md-field>
         <md-field :class="{'input': true, 'md-invalid': checkPassword}">
           <label>Password</label>
@@ -22,36 +26,14 @@
         <md-button
           class="button"
           @click="getUserInfoJson"
+          v-show="buttonShow"
         >Sign In</md-button>
         <md-button
-          class="button"
-          @click="Out"
-        >Out</md-button>
-        <md-button
-          class="button"
-          @click="check"
-        >check</md-button>
-        <router-link to="/recommend">
-          <md-button
-            class="button"
-          >goRecommend</md-button>
-        </router-link>
-        <md-button
-          class="button"
-          @click="playList"
-        >歌单详情</md-button>
-        <md-button
-          class="button"
-          @click="playList1"
-        >用户数据</md-button>
-        <md-button
-          class="button"
-          @click="playList2"
-        >华语hot歌单</md-button>
-        <md-button
-          class="button"
-          @click="playList3"
-        >获取用户信息</md-button>
+          class="disbutton"
+          @click="getUserInfoJson"
+          v-show="!buttonShow"
+          disabled
+        >Sign In</md-button>
       </div>
     </div>
   </div>
@@ -69,21 +51,35 @@ export default {
       userPhoneNumberL: '',
       userPassword: '',
       checkPassword: false,
-      passwordErrorMessage: ''
+      checkMobile: false,
+      passwordErrorMessage: '',
+      mobileErrorMessage: '',
+      buttonShow: true
     }
   },
   methods: {
-    getUserInfoJson () {
-      if (this.userPassword === '') {
+    checkInput () {
+      if (this.userPhoneNumberL === '') {
+        this.mobileErrorMessage = '手机号不能为空'
+        this.checkMobile = true
+        console.log(this.mobileErrorMessage)
+      } else if (this.userPassword === '') {
         this.passwordErrorMessage = '密码不能为空'
         this.checkPassword = true
       } else if (this.userPassword.length > 0 && this.userPassword.length < 6) {
         this.passwordErrorMessage = '密码长度不能小于6位'
         this.checkPassword = true
       } else {
+        this.buttonShow = false
         this.checkPassword = false
+        return true
+      }
+    },
+    getUserInfoJson () {
+      if (this.checkInput()) {
         axios.get('/login/cellphone?phone=' + this.userPhoneNumberL + '&password=' + this.userPassword, {withCredentials: true})
           .then(this.handleGetUserInfoJson, e => {
+            this.buttonShow = true
             console.log(e)
           })
       }
@@ -98,35 +94,12 @@ export default {
     userStatusJson (res) {
       if (res.status === 200) {
         console.log(res)
-        // this.$router.push('/recommend')
+        this.$router.push('/')
       }
-    },
-    Out () {
-      axios.get('/logout', {withCredentials: true})
-        .then((res) => console.log(res), e => console.log(e))
-    },
-    check () {
-      axios.get('/login/status', { withCredentials: true })
-        .then((res) => console.log(res), e => console.log(e))
     },
     handlePasswordInput () {
       this.checkPassword = false
-    },
-    playList () {
-      axios.get('/playlist/detail?id=2829883282', { withCredentials: true })
-        .then((res) => console.log(res), e => console.log(e))
-    },
-    playList1 () {
-      axios.get('/user/detail?uid=2015939851', { withCredentials: true })
-        .then((res) => console.log(res), e => console.log(e))
-    },
-    playList2 () {
-      axios.get('/top/playlist?limit=10&order=hot&cat=华语', { withCredentials: true })
-        .then((res) => console.log(res), e => console.log(e))
-    },
-    playList3 () {
-      axios.get('/user/subcount', { withCredentials: true })
-        .then((res) => console.log(res), e => console.log(e))
+      this.checkMobile = false
     }
   }
 }
@@ -167,4 +140,7 @@ export default {
         width: 100%
         .button
           background: #eee
+        .disbutton
+          background: #eee
+          margin-left: 8px
 </style>

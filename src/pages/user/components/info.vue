@@ -37,6 +37,7 @@ export default {
   @import '~styles/mixins.styl'
   .info-wrapper
     width: 100%
+    overflow-x: hidden
     height: 2.5rem
     display: flex
     position: relative

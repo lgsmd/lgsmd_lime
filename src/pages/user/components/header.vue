@@ -15,10 +15,12 @@ export default {
 
 <style lang="stylus" scoped>
   .header
+    position: relative
     padding-top: .1rem
     height: .86rem
     line-height: .86rem
     width: 100%
+    overflow: hidden
     .header-left
       position: absolute
       left: 0
