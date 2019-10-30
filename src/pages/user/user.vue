@@ -17,6 +17,11 @@ export default {
     UserPlaylist,
     UserHeader,
     UserInfo
+  },
+  activated () {
+    if (this.$store.state.a.loginStatus === 'logOut') {
+      this.$router.push('/login')
+    }
   }
 }
 </script>

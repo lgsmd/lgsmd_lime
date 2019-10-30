@@ -14,7 +14,7 @@
     </div>
     <div class="setting iconfont">
       <div>&#xe8b7;</div>
-      <div>&#xe64b;</div>
+      <div @click="handleLogout">&#xe64b;</div>
     </div>
   </div>
 </template>
@@ -28,6 +28,14 @@ export default {
       signature: '阿来来哥来来',
       followers: 0,
       following: 3
+    }
+  },
+  methods: {
+    handleLogout () {
+      this.$store.commit('logOut')
+      if (this.$store.state.a.loginStatus === 'logOut') {
+        this.$router.push('/login')
+      }
     }
   }
 }

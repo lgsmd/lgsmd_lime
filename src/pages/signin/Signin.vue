@@ -34,6 +34,18 @@
           v-show="!buttonShow"
           disabled
         >Sign In</md-button>
+        <md-button
+          class="button"
+          @click="testout"
+        >test out</md-button>
+        <md-button
+          class="button"
+          @click="checkLogin"
+        >check login</md-button>
+        <md-button
+          class="button"
+          @click="Login"
+        >模拟进入登录</md-button>
       </div>
     </div>
   </div>
@@ -100,6 +112,28 @@ export default {
     handlePasswordInput () {
       this.checkPassword = false
       this.checkMobile = false
+    },
+    testout () {
+      axios.get('/logout', {withCredentials: true})
+        .then(res => console.log('success:' + res), (preview) => console.log('false:' + preview))
+    },
+    checkLogin () {
+      axios.get('/login/status', {withCredentials: true})
+        .then(res => console.log('success:' + res), e => console.log('Error', e.response))
+    },
+    Login () {
+      console.log(this.$store.state.a.loginStatus)
+      this.$store.commit('login')
+      if (this.$store.state.a.loginStatus) {
+        this.$router.push('/')
+        console.log(this.$store.state.a.loginStatus)
+      }
+    }
+  },
+  activated () {
+    console.log(this.$store.state.a.loginStatus)
+    if (this.$store.state.a.loginStatus === 'login') {
+      this.$router.push('/')
     }
   }
 }

@@ -14,6 +14,11 @@ export default {
   components: {
     HomeHeader,
     MusicSwiper
+  },
+  activated () {
+    if (this.$store.state.a.loginStatus === 'logOut') {
+      this.$router.push('/login')
+    }
   }
 }
 </script>
