@@ -1,16 +1,34 @@
+let defaultId = null
+let defaultNickname = ''
+let defaultCity = ''
+let defaultSignature = ''
+let defaultAvatarUrl = ''
+let defaultFolloweds = null
+let defaultFollows = null
+
+try {
+  defaultId = localStorage.userId
+  defaultNickname = localStorage.nickname
+  defaultCity = localStorage.city
+  defaultSignature = localStorage.signature
+  defaultAvatarUrl = localStorage.avatarUrl
+  defaultFolloweds = localStorage.followeds
+  defaultFollows = localStorage.follows
+} catch (e) {}
+
 export default {
   state: {
-    id: null,
-    nickname: '',
-    city: '',
-    signature: '',
-    avatarUrl: '',
-    followeds: '',
-    follows: ''
+    userId: defaultId,
+    nickname: defaultNickname,
+    city: defaultCity,
+    signature: defaultSignature,
+    avatarUrl: defaultAvatarUrl,
+    followeds: defaultFolloweds,
+    follows: defaultFollows
   },
   mutations: {
     saveLoginInfo (state, userInfo) {
-      state.id = userInfo.userid
+      state.userId = userInfo.userId
       state.nickname = userInfo.nickname
       state.city = userInfo.city
       state.signature = userInfo.signature
@@ -18,8 +36,8 @@ export default {
       state.followeds = userInfo.followeds
       state.follows = userInfo.follows
       try {
-        localStorage.id = state.id
-        localStorage.name = state.nickname
+        localStorage.userId = state.userId
+        localStorage.nickname = state.nickname
         localStorage.city = state.city
         localStorage.signature = state.signature
         localStorage.avatarUrl = state.avatarUrl

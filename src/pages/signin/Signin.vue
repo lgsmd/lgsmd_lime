@@ -80,6 +80,7 @@ export default {
     getUserInfo (res) {
       if (res.status === 200 && res.data) {
         const data = res.data.profile
+        console.log(data)
         this.$store.commit('saveLoginInfo', data)
         axios.get('/login/status', {withCredentials: true})
           .then(this.userStatus)

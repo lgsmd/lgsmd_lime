@@ -4,16 +4,16 @@
       <img class="list-img" src="http://p1.music.126.net/zb31yq9043amdI-J2omGnA==/109951164447427307.jpg" />
     </div>
     <div class="description-wrapper">
-      <div class="name md-headline">{{nickName}}</div>
-      <div class="signature md-caption">{{signature}}</div>
-      <div class="city-number md-caption">{{city}}</div>
+      <div class="name md-headline">{{this.$store.state.loginInfo.nickname}}</div>
+      <div class="signature md-caption">{{this.$store.state.loginInfo.signature}}</div>
+      <div class="city-number md-caption">{{this.$store.state.loginInfo.city}}</div>
       <div class="follow">
-        <div class="follower md-caption">followers: {{followers}}</div>
-        <div class="follower md-caption">following: {{following}}</div>
+        <div class="follower md-caption">followers: {{this.$store.state.loginInfo.followeds}}</div>
+        <div class="follower md-caption">following: {{this.$store.state.loginInfo.follows}}</div>
       </div>
     </div>
     <div class="setting iconfont">
-      <div>&#xe8b7;</div>
+      <div @click="handle">&#xe8b7;</div>
       <div @click="handleLogout">&#xe64b;</div>
     </div>
   </div>
@@ -26,15 +26,6 @@ axios.defaults.baseURL = 'https://api.lgsmd.com'
 
 export default {
   name: 'UserInfo',
-  data () {
-    return {
-      nickName: '',
-      city: null,
-      signature: '',
-      followers: null,
-      following: null
-    }
-  },
   methods: {
     handleLogout () {
       axios.get('/logout', {withCredentials: true})
@@ -42,18 +33,13 @@ export default {
     },
     logOut (res) {
       if (res.status === 200 && res.data.code === 200) {
-        console.log(res)
         this.$store.commit('logOut')
         this.$router.push('/login')
       }
+    },
+    handle () {
+      console.log(this.$store.state.loginInfo)
     }
-  },
-  activated () {
-    this.nickName = this.$store.state.loginInfo.nickname
-    this.city = this.$store.state.loginInfo.city
-    this.signature = this.$store.state.loginInfo.signature
-    this.followers = this.$store.state.loginInfo.followeds
-    this.following = this.$store.state.loginInfo.follows
   }
 }
 </script>
