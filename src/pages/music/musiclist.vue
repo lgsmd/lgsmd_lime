@@ -18,7 +18,7 @@ export default {
     Music
   },
   activated () {
-    if (this.$store.state.a.loginStatus === 'logOut') {
+    if (this.$store.state.loginStatus.loginStatus === 'logOut') {
       this.$router.push('/login')
     }
   }

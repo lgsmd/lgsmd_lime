@@ -25,27 +25,15 @@
         </md-field>
         <md-button
           class="button"
-          @click="getUserInfoJson"
+          @click="userLogin"
           v-show="buttonShow"
         >Sign In</md-button>
         <md-button
           class="disbutton"
-          @click="getUserInfoJson"
+          @click="userLogin"
           v-show="!buttonShow"
           disabled
         >Sign In</md-button>
-        <md-button
-          class="button"
-          @click="testout"
-        >test out</md-button>
-        <md-button
-          class="button"
-          @click="checkLogin"
-        >check login</md-button>
-        <md-button
-          class="button"
-          @click="Login"
-        >模拟进入登录</md-button>
       </div>
     </div>
   </div>
@@ -70,11 +58,47 @@ export default {
     }
   },
   methods: {
+    userLogin () {
+      if (this.checkInput()) {
+        axios.get('/login/cellphone?phone=' + this.userPhoneNumberL + '&password=' + this.userPassword, {withCredentials: true})
+          .then(this.getUserInfo)
+          .catch(this.loginError)
+      }
+    },
+    loginError (err) {
+      this.buttonShow = true
+      if (err.response.status === 400) {
+        alert('手机号输入不正确！')
+      } else if (err.response.status === 502) {
+        alert('密码错误！')
+      } else if (err.response.status === 501) {
+        alert('手机号未注册！')
+      } else {
+        alert('error', err)
+      }
+    },
+    getUserInfo (res) {
+      if (res.status === 200 && res.data) {
+        const data = res.data.profile
+        this.$store.commit('saveLoginInfo', data)
+        axios.get('/login/status', {withCredentials: true})
+          .then(this.userStatus)
+      }
+    },
+    userStatus (res) {
+      if (res.status === 200) {
+        this.$store.commit('login')
+        this.$router.push('/')
+      }
+    },
+    handlePasswordInput () {
+      this.checkPassword = false
+      this.checkMobile = false
+    },
     checkInput () {
       if (this.userPhoneNumberL === '') {
         this.mobileErrorMessage = '手机号不能为空'
         this.checkMobile = true
-        console.log(this.mobileErrorMessage)
       } else if (this.userPassword === '') {
         this.passwordErrorMessage = '密码不能为空'
         this.checkPassword = true
@@ -86,53 +110,10 @@ export default {
         this.checkPassword = false
         return true
       }
-    },
-    getUserInfoJson () {
-      if (this.checkInput()) {
-        axios.get('/login/cellphone?phone=' + this.userPhoneNumberL + '&password=' + this.userPassword, {withCredentials: true})
-          .then(this.handleGetUserInfoJson, e => {
-            this.buttonShow = true
-            console.log(e)
-          })
-      }
-    },
-    handleGetUserInfoJson (res) {
-      if (res.status === 200) {
-        console.log(res)
-        axios.get('/login/status', {withCredentials: true})
-          .then(this.userStatusJson)
-      }
-    },
-    userStatusJson (res) {
-      if (res.status === 200) {
-        console.log(res)
-        this.$router.push('/')
-      }
-    },
-    handlePasswordInput () {
-      this.checkPassword = false
-      this.checkMobile = false
-    },
-    testout () {
-      axios.get('/logout', {withCredentials: true})
-        .then(res => console.log('success:' + res), (preview) => console.log('false:' + preview))
-    },
-    checkLogin () {
-      axios.get('/login/status', {withCredentials: true})
-        .then(res => console.log('success:' + res), e => console.log('Error', e.response))
-    },
-    Login () {
-      console.log(this.$store.state.a.loginStatus)
-      this.$store.commit('login')
-      if (this.$store.state.a.loginStatus) {
-        this.$router.push('/')
-        console.log(this.$store.state.a.loginStatus)
-      }
     }
   },
-  activated () {
-    console.log(this.$store.state.a.loginStatus)
-    if (this.$store.state.a.loginStatus === 'login') {
+  created () {
+    if (this.$store.state.loginStatus.loginStatus === 'login') {
       this.$router.push('/')
     }
   }

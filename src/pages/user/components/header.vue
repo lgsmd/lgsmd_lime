@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <router-link to="/recommend">
+    <router-link to="/">
       <div class="header-left iconfont">&#xe658;</div>
     </router-link>
     <div class="header-name">MY PROFILE</div>

@@ -4,9 +4,9 @@
       <img class="list-img" src="http://p1.music.126.net/zb31yq9043amdI-J2omGnA==/109951164447427307.jpg" />
     </div>
     <div class="description-wrapper">
-      <div class="name md-headline">lgsmd</div>
+      <div class="name md-headline">{{nickName}}</div>
       <div class="signature md-caption">{{signature}}</div>
-      <div class="city-number md-caption">{{cityNum}}</div>
+      <div class="city-number md-caption">{{city}}</div>
       <div class="follow">
         <div class="follower md-caption">followers: {{followers}}</div>
         <div class="follower md-caption">following: {{following}}</div>
@@ -20,23 +20,40 @@
 </template>
 
 <script>
+import axios from 'axios'
+
+axios.defaults.baseURL = 'https://api.lgsmd.com'
+
 export default {
   name: 'UserInfo',
   data () {
     return {
-      cityNum: 510000,
-      signature: '阿来来哥来来',
-      followers: 0,
-      following: 3
+      nickName: '',
+      city: null,
+      signature: '',
+      followers: null,
+      following: null
     }
   },
   methods: {
     handleLogout () {
-      this.$store.commit('logOut')
-      if (this.$store.state.a.loginStatus === 'logOut') {
+      axios.get('/logout', {withCredentials: true})
+        .then(this.logOut)
+    },
+    logOut (res) {
+      if (res.status === 200 && res.data.code === 200) {
+        console.log(res)
+        this.$store.commit('logOut')
         this.$router.push('/login')
       }
     }
+  },
+  activated () {
+    this.nickName = this.$store.state.loginInfo.nickname
+    this.city = this.$store.state.loginInfo.city
+    this.signature = this.$store.state.loginInfo.signature
+    this.followers = this.$store.state.loginInfo.followeds
+    this.following = this.$store.state.loginInfo.follows
   }
 }
 </script>
