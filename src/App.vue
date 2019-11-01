@@ -1,7 +1,9 @@
 <template>
-  <keep-alive>
-    <router-view/>
-  </keep-alive>
+  <div class="app">
+    <keep-alive exclude="UserOption">
+      <router-view/>
+    </keep-alive>
+  </div>
 </template>
 
 <script>

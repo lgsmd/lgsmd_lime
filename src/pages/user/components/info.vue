@@ -4,12 +4,12 @@
       <img class="list-img" src="http://p1.music.126.net/zb31yq9043amdI-J2omGnA==/109951164447427307.jpg" />
     </div>
     <div class="description-wrapper">
-      <div class="name md-headline">{{this.$store.state.loginInfo.nickname}}</div>
-      <div class="signature md-caption">{{this.$store.state.loginInfo.signature}}</div>
-      <div class="city-number md-caption">{{this.$store.state.loginInfo.city}}</div>
+      <div class="name md-headline">{{loginInfo.nickname}}</div>
+      <div class="signature md-caption">{{loginInfo.signature}}</div>
+      <div class="city-number md-caption">{{loginInfo.city}}</div>
       <div class="follow">
-        <div class="follower md-caption">followers: {{this.$store.state.loginInfo.followeds}}</div>
-        <div class="follower md-caption">following: {{this.$store.state.loginInfo.follows}}</div>
+        <div class="follower md-caption">followers: {{loginInfo.followeds}}</div>
+        <div class="follower md-caption">following: {{loginInfo.follows}}</div>
       </div>
     </div>
     <div class="setting iconfont">
@@ -21,11 +21,17 @@
 
 <script>
 import axios from 'axios'
+import { mapState } from 'vuex'
 
 axios.defaults.baseURL = 'https://api.lgsmd.com'
 
 export default {
   name: 'UserInfo',
+  computed: {
+    ...mapState({
+      loginInfo: state => state.loginInfo
+    })
+  },
   methods: {
     handleLogout () {
       axios.get('/logout', {withCredentials: true})
