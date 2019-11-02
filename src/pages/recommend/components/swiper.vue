@@ -2,14 +2,17 @@
   <div class="wrapper">
     <h2 class="title">RECOMMEND</h2>
     <swiper :options="swiperOption">
-      <swiper-slide class="aaa">
+      <swiper-slide
+        class="aaa"
+        v-for="playlist of lists"
+        :key="playlist.id"
+      >
         <div class="img-wrapper" @click="handleSwiper">
-          <img src="http://p1.music.126.net/KEBE7CU-y2lInkHBcgzpUA==/109951164173101961.jpg" />
+          <img :src="playlist.coverImgUrl" />
         </div>
         <div class="description-wrapper" @click="handleSwiper">
-          <div class="md-title nick-name">网易云音乐</div>
-          <div class="md-caption creator-description">网易云音乐官网账号</div>
-          <div class="description">全都是耐听的华语好歌，这里是你的专属华语日推，收藏订阅，歌荒，不存在的事</div>
+          <div class="md-title name">{{playlist.name}}</div>
+          <div class="md-caption creator-description">{{playlist.description}}</div>
         </div>
         <div class="love-comment iconfont">
           <div class="icons">
@@ -23,12 +26,6 @@
           </div>
         </div>
       </swiper-slide>
-      <swiper-slide class="aaa">
-      </swiper-slide>
-      <swiper-slide class="aaa">
-      </swiper-slide>
-      <swiper-slide class="aaa">
-      </swiper-slide>
     </swiper>
   </div>
 </template>
@@ -36,6 +33,9 @@
 <script>
 export default {
   name: 'MusicSwiper',
+  props: {
+    playlists: Array
+  },
   data () {
     return {
       likeIcon: false,
@@ -43,7 +43,13 @@ export default {
         slidesPerView: 'auto',
         centeredSlides: true,
         spaceBetween: 0
-      }
+      },
+      lists: [{name: 'loading...'}]
+    }
+  },
+  watch: {
+    playlists () {
+      this.lists = this.playlists
     }
   },
   methods: {
@@ -78,13 +84,13 @@ export default {
       .description-wrapper
         margin: .2rem
         color: black
-        .nick-name
+        .name
           font-size: .4rem
+          height: 1rem
+          overflow: hidden
+          ellipsis-two()
         .creator-description
-          margin-top: .1rem
-        .description
-          width: 100%
-          margin-top: .3rem
+          margin-top: .45rem
           ellipsis-two()
       .love-comment
         position: absolute
@@ -107,7 +113,6 @@ export default {
       height: .5rem
       line-height: .55rem
       margin-left: .3rem
-      margin-bottom: -.2rem
       font-size: .4rem
     .swiper-slide
       width: 70%
