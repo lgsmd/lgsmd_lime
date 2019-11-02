@@ -74,20 +74,13 @@ export default {
       } else if (err.response.status === 501) {
         alert('手机号未注册！')
       } else {
-        alert('error', err)
+        alert('网络错误！')
       }
     },
     getUserInfo (res) {
-      if (res.status === 200 && res.data) {
-        // const data = res.data.profile
-        // console.log(data)
-        // this.$store.commit('saveLoginInfo', data)
-        axios.get('/login/status', {withCredentials: true})
-          .then(this.userStatus)
-      }
-    },
-    userStatus (res) {
-      if (res.status === 200) {
+      if (res.data && res.status === 200) {
+        const data = res.data.profile
+        this.$store.commit('saveLoginInfo', data)
         this.$store.commit('login')
         this.$router.push('/')
       }
@@ -113,7 +106,7 @@ export default {
       }
     }
   },
-  created () {
+  mounted () {
     if (this.$store.state.loginStatus.loginStatus === 'login') {
       this.$router.push('/')
     }

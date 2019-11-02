@@ -2,7 +2,7 @@
   <div>
     <user-header></user-header>
     <user-info></user-info>
-    <user-playlist></user-playlist>
+    <user-playlist :list="playlists"></user-playlist>
   </div>
 </template>
 
@@ -19,7 +19,8 @@ export default {
   name: 'UserOption',
   data () {
     return {
-      timestamp: Date.parse(new Date())
+      timestamp: Date.parse(new Date()),
+      playlists: []
     }
   },
   components: {
@@ -34,12 +35,12 @@ export default {
   },
   methods: {
     getUserInfo () {
+      this.playlists = this.$store.state.loginInfo.playlists
       axios.get('/user/detail?uid=' + this.loginInfo.userId + '&timestamp=' + this.timestamp, {withCredentials: true})
         .then(this.updateUserDetail)
         .then(this.getUserSubcount)
     },
     updateUserDetail (res) {
-      console.log(res)
       const profile = res.data.profile
       this.$store.commit('saveLoginInfo', profile)
     },
@@ -48,7 +49,8 @@ export default {
         .then(this.updateUserSubcount)
     },
     updateUserSubcount (res) {
-      console.log(res)
+      this.playlists = res.data.playlist
+      this.$store.commit('updatePlaylists', res.data.playlist)
     }
   },
   mounted () {

@@ -2,28 +2,28 @@
   <div class="wrapper">
     <h2 class="title">Personal playlists</h2>
     <swiper :options="swiperOption">
-      <swiper-slide class="aaa">
+      <swiper-slide
+        class="aaa"
+        v-for="playlist of playlists"
+        :key="playlist.id"
+      >
         <div class="img-wrapper" @click="handleSwiper">
-          <img src="http://p1.music.126.net/KEBE7CU-y2lInkHBcgzpUA==/109951164173101961.jpg" />
+          <img :src="playlist.coverImgUrl" />
         </div>
         <div class="description-wrapper" @click="handleSwiper">
-          <div class="md-title nick-name">[华语私人订制] 你爱的华语好歌都在这儿</div>
+          <div class="md-title nick-name">{{playlist.name}}</div>
         </div>
-      </swiper-slide>
-      <swiper-slide class="aaa">
-      </swiper-slide>
-      <swiper-slide class="aaa">
-      </swiper-slide>
-      <swiper-slide class="aaa">
       </swiper-slide>
     </swiper>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'UserPlaylist',
+  props: {
+    list: Array
+  },
   data () {
     return {
       swiperOption: {
@@ -31,6 +31,22 @@ export default {
         centeredSlides: true,
         spaceBetween: 0
       }
+    }
+  },
+  computed: {
+    playlists () {
+      const playlists = []
+      this.list.forEach((playlist, index) => {
+        let play = {}
+        play.id = playlist.id
+        play.name = playlist.name
+        play.coverImgUrl = playlist.coverImgUrl
+        if (!playlists[index]) {
+          playlists[index] = []
+        }
+        playlists[index] = play
+      })
+      return playlists
     }
   },
   methods: {
@@ -74,7 +90,6 @@ export default {
       height: .5rem
       line-height: .55rem
       margin-left: .5rem
-      margin-bottom: -.2rem
       font-size: .4rem
     .swiper-slide
       width: 60%

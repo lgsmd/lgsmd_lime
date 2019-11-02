@@ -5,6 +5,7 @@ let defaultSignature = ''
 let defaultAvatarUrl = ''
 let defaultFolloweds = null
 let defaultFollows = null
+let defaultPlaylists = [{id: 1, name: 'loading...', coverImgUrl: ''}]
 
 try {
   defaultId = localStorage.userId
@@ -14,6 +15,9 @@ try {
   defaultAvatarUrl = localStorage.avatarUrl
   defaultFolloweds = localStorage.followeds
   defaultFollows = localStorage.follows
+  if (localStorage.playlists) {
+    defaultPlaylists = JSON.parse(localStorage.playlists)
+  }
 } catch (e) {}
 
 export default {
@@ -24,7 +28,8 @@ export default {
     signature: defaultSignature,
     avatarUrl: defaultAvatarUrl,
     followeds: defaultFolloweds,
-    follows: defaultFollows
+    follows: defaultFollows,
+    playlists: defaultPlaylists
   },
   mutations: {
     saveLoginInfo (state, userInfo) {
@@ -43,6 +48,12 @@ export default {
         localStorage.avatarUrl = state.avatarUrl
         localStorage.followeds = state.followeds
         localStorage.follows = state.follows
+      } catch (e) {}
+    },
+    updatePlaylists (state, playlists) {
+      state.playlists = playlists
+      try {
+        localStorage.playlists = JSON.stringify(state.playlists)
       } catch (e) {}
     }
   }

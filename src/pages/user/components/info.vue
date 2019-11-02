@@ -36,6 +36,9 @@ export default {
     handleLogout () {
       axios.get('/logout', {withCredentials: true})
         .then(this.logOut)
+        .catch((err) => {
+          alert('退出失败！' + err.message)
+        })
     },
     logOut (res) {
       if (res.status === 200 && res.data.code === 200) {
