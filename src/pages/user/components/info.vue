@@ -37,7 +37,7 @@ export default {
       axios.get('/logout', {withCredentials: true})
         .then(this.logOut)
         .catch((err) => {
-          alert('退出失败！' + err.message)
+          alert('退出失败！' + err)
         })
     },
     logOut (res) {

@@ -39,6 +39,7 @@ export default {
       axios.get('/user/detail?uid=' + this.loginInfo.userId + '&timestamp=' + this.timestamp, {withCredentials: true})
         .then(this.updateUserDetail)
         .then(this.getUserSubcount)
+        .catch((err) => alert('错误！' + err))
     },
     updateUserDetail (res) {
       const profile = res.data.profile
@@ -54,6 +55,13 @@ export default {
     }
   },
   mounted () {
+    if (this.$store.state.loginStatus.loginStatus === 'logOut') {
+      this.$router.push('/login')
+    } else {
+      this.getUserInfo()
+    }
+  },
+  activated () {
     if (this.$store.state.loginStatus.loginStatus === 'logOut') {
       this.$router.push('/login')
     } else {

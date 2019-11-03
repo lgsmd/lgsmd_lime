@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import loginStatus from './loginStatus'
-import routerTable from './routerTable'
 import loginInfo from './userInfo'
+import playlist from './playlist'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     loginStatus,
-    routerTable,
-    loginInfo
+    loginInfo,
+    playlist
   }
 })

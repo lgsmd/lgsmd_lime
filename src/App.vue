@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <keep-alive exclude="UserOption">
+    <keep-alive :exclude="['MusicList', 'UserOption']">
       <router-view/>
     </keep-alive>
   </div>

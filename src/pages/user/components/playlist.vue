@@ -7,12 +7,22 @@
         v-for="playlist of playlists"
         :key="playlist.id"
       >
-        <div class="img-wrapper" @click="handleSwiper">
-          <img :src="playlist.coverImgUrl" />
-        </div>
-        <div class="description-wrapper" @click="handleSwiper">
-          <div class="md-title nick-name">{{playlist.name}}</div>
-        </div>
+        <router-link
+          :to="{
+            path: '/list/' + playlist.id,
+            query: {
+              arry: '/user'
+            }
+          }"
+          class="a"
+        >
+          <div class="img-wrapper" @click="handleSwiper(playlist)">
+            <img :src="playlist.coverImgUrl" />
+          </div>
+          <div class="description-wrapper" @click="handleSwiper(playlist)">
+            <div class="md-title nick-name">{{playlist.name}}</div>
+          </div>
+        </router-link>
       </swiper-slide>
     </swiper>
   </div>
@@ -41,6 +51,7 @@ export default {
         play.id = playlist.id
         play.name = playlist.name
         play.coverImgUrl = playlist.coverImgUrl
+        play.description = playlist.description
         if (!playlists[index]) {
           playlists[index] = []
         }
@@ -50,8 +61,16 @@ export default {
     }
   },
   methods: {
-    handleSwiper () {
-      this.$router.push('/list')
+    handleSwiper (playlist) {
+      const playData = {}
+      playData.playName = playlist.name
+      playData.playImg = playlist.coverImgUrl
+      if (!playlist.description) {
+        playData.playDescription = '作者没有给歌单写简介...'
+      } else {
+        playData.playDescription = playlist.description
+      }
+      this.$store.commit('savePlaylist', playData)
     }
   }
 }
@@ -70,6 +89,8 @@ export default {
       padding-bottom: 86%
       border-radius: .05rem
       box-shadow : 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.2),0 1px 18px 0 rgba(0,0,0,.2)
+      .a
+        text-decoration: none;
       .img-wrapper
         height: 0
         width: 100%

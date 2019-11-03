@@ -2,18 +2,18 @@
   <div class="creator">
     <div class="wrapper">
       <div class="img-wrapper">
-        <img class="list-img" src="http://p1.music.126.net/KEBE7CU-y2lInkHBcgzpUA==/109951164173101961.jpg" />
+        <img class="list-img" :src="coverImgUrl" />
       </div>
       <div class="list-description">
-        <div class="name">[华语私人订制] 你爱的华语好歌都在这儿</div>
+        <div class="name">{{playName}}</div>
         <div class="creator-avatar">
           <md-avatar class="avatar md-small">
-            <img src="http://p1.music.126.net/QWMV-Ru_6149AKe0mCBXKg==/1420569024374784.jpg" alt="Avatar" class="avatar-img">
+            <img :src="creator.avatarUrl">
           </md-avatar>
-          <div class="avatar-name">网易云音乐</div>
+          <div class="avatar-name">{{creator.nickname}}</div>
         </div>
         <div class="description-wrapper">
-          <div class="md-caption description">全都是耐听的华语好歌，这里是你的专属华语日推，收藏订阅，歌荒，不存在的事</div>
+          <div class="md-caption description">{{playDescription}}</div>
           <div class="details iconfont">&#xe62d;</div>
         </div>
       </div>
@@ -43,6 +43,12 @@
 <script>
 export default {
   name: 'MusicDescription',
+  props: {
+    creator: Object,
+    coverImgUrl: String,
+    playName: String,
+    playDescription: String
+  },
   data () {
     return {
       likeIcon: false

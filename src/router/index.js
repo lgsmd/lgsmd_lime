@@ -20,7 +20,7 @@ export default new Router({
       component: Recommend
     },
     {
-      path: '/list',
+      path: '/list/:id',
       name: 'MusicList',
       component: MusicList
     },

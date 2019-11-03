@@ -6,11 +6,10 @@
     <div class="music-title">全部歌曲</div>
     <div class="music-wrapper">
       <ul class="music-list">
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
-        </li>
-        <li class="musics">
-          <div class="music-name border-bottom">偏爱</div>
+        <li class="musics" v-for="music of musicList" :key="music.id">
+          <div class="music-name border-bottom">
+            <div class="name">{{music.name}}</div>
+          </div>
         </li>
       </ul>
     </div>
@@ -20,6 +19,9 @@
 <script>
 export default {
   name: 'Music',
+  props: {
+    musicList: Array
+  },
   data () {
     return {
       borderShow: false
@@ -35,16 +37,17 @@ export default {
       }
     }
   },
-  activated () {
+  mounted () {
     window.addEventListener('scroll', this.handleScroll)
   },
-  deactivated () {
+  destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+  @import '~styles/mixins.styl'
   .wrapper
     position: relative
     top: 5.46rem
@@ -87,4 +90,8 @@ export default {
           height: .85rem
           line-height: .85rem
           margin-left: .2rem
+          width: 100%
+          .name
+            max-width: 5rem
+            ellipsis-one()
 </style>

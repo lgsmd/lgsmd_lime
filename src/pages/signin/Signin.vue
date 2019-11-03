@@ -66,6 +66,7 @@ export default {
       }
     },
     loginError (err) {
+      alert('网络错误！error:' + err)
       this.buttonShow = true
       if (err.response.status === 400) {
         alert('手机号输入不正确！')
@@ -82,6 +83,7 @@ export default {
         const data = res.data.profile
         this.$store.commit('saveLoginInfo', data)
         this.$store.commit('login')
+        this.buttonShow = true
         this.$router.push('/')
       }
     },
@@ -107,6 +109,11 @@ export default {
     }
   },
   mounted () {
+    if (this.$store.state.loginStatus.loginStatus === 'login') {
+      this.$router.push('/')
+    }
+  },
+  activated () {
     if (this.$store.state.loginStatus.loginStatus === 'login') {
       this.$router.push('/')
     }

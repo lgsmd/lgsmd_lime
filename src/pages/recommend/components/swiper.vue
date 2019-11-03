@@ -7,13 +7,23 @@
         v-for="playlist of lists"
         :key="playlist.id"
       >
-        <div class="img-wrapper" @click="handleSwiper">
-          <img :src="playlist.coverImgUrl" />
-        </div>
-        <div class="description-wrapper" @click="handleSwiper">
-          <div class="md-title name">{{playlist.name}}</div>
-          <div class="md-caption creator-description">{{playlist.description}}</div>
-        </div>
+        <router-link
+          :to="{
+            path: '/list/' + playlist.id,
+            query: {
+              arry: '/'
+            }
+          }"
+          class="a"
+        >
+          <div class="img-wrapper" @click="hanleTransferData(playlist)">
+            <img :src="playlist.coverImgUrl" />
+          </div>
+          <div class="description-wrapper" @click="hanleTransferData(playlist)">
+            <div class="md-title name">{{playlist.name}}</div>
+            <div class="md-caption creator-description">{{playlist.description}}</div>
+          </div>
+        </router-link>
         <div class="love-comment iconfont">
           <div class="icons">
             <div class="icon" v-show="!likeIcon" @click="handleLike">&#xe8ab;</div>
@@ -56,8 +66,12 @@ export default {
     handleLike () {
       this.likeIcon = !this.likeIcon
     },
-    handleSwiper () {
-      this.$router.push('/list')
+    hanleTransferData (playlist) {
+      const playData = {}
+      playData.playName = playlist.name
+      playData.playImg = playlist.coverImgUrl
+      playData.playDescription = playlist.description
+      this.$store.commit('savePlaylist', playData)
     }
   }
 }
@@ -76,6 +90,8 @@ export default {
       padding-bottom: 130%
       border-radius: .05rem
       box-shadow : 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.2),0 1px 18px 0 rgba(0,0,0,.2)
+      .a
+        text-decoration: none;
       .img-wrapper
         overflow: hidden
         height: 0
@@ -101,13 +117,14 @@ export default {
         color: black
         .icons
           width: 50%
+          padding: 0 .8rem
           text-align: center
           margin-left: .15rem
-        .icon
-          font-size: .55rem
-        .text
-          margin-top: .2rem
-          font-size: .2rem
+          .icon
+            font-size: .55rem
+          .text
+            margin-top: .2rem
+            font-size: .2rem
     .title
       width: 100%
       height: .5rem

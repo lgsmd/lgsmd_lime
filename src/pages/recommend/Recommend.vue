@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     requestPlaylist () {
-      axios.get('/top/playlist/highquality?limit=10', {withCredentials: true})
+      axios.get('/top/playlist/highquality?limit=10')
         .then(this.getPlaylists)
         .catch(this.requestError)
     },
@@ -37,16 +37,23 @@ export default {
       }
     },
     requestError (err) {
+      alert('错误！' + err)
       console.log('error', err)
     }
   },
   mounted () {
     if (this.$store.state.loginStatus.loginStatus === 'logOut') {
       this.$router.push('/login')
+    } else {
+      this.requestPlaylist()
     }
   },
   activated () {
-    this.requestPlaylist()
+    if (this.$store.state.loginStatus.loginStatus === 'logOut') {
+      this.$router.push('/login')
+    } else {
+      this.requestPlaylist()
+    }
   }
 }
 </script>

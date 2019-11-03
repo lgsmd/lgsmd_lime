@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <router-link to="/">
+    <router-link :to="goRouter">
       <div class="header-left iconfont">&#xe658;</div>
     </router-link>
     <div class="header-name">歌单</div>
@@ -9,7 +9,10 @@
 
 <script>
 export default {
-  name: 'MusicHeader'
+  name: 'MusicHeader',
+  props: {
+    goRouter: String
+  }
 }
 </script>
 
